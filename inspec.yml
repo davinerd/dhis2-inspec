@@ -1,0 +1,11 @@
+name: dhis2
+title: DHIS2 Security Assessment Profile
+maintainer: DHIS2 Security Team
+copyright: DHIS2
+copyright_email: security@dhis2.org
+license: GPLv3
+summary: Server security assessment
+version: 1.0.0
+supports:
+  - platform-family: linux
+inspec_version: "~> 5.18"
