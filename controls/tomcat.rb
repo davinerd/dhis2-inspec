@@ -121,9 +121,12 @@ end
 
 control 'tomcat.manager_app' do
   impact 1.0
-  tag 'ID: 3.39-6/2.2'
+  tag cis_id: "10.3/10.4"
+  tag cis_level: 2
+
   title 'If the "manager" application is used, this must be protected against unauthorized use.'
-  if File.directory?(catalina_home + '/webapps/manager')
+
+  if File.directory?(tomcat_libs + '/webapps/manager')
     describe file(tomcat_conf + '/server.xml') do
       its('owner') { should eq tomcat_user }
       its('group') { should eq tomcat_group }
@@ -134,7 +137,13 @@ control 'tomcat.manager_app' do
       its('owner') { should eq tomcat_user }
       its('group') { should eq tomcat_group }
       its('mode') { should cmp '0640' }
-      its('content') { should match '<user username=".*"\s+password="([a-f0-9]{40})"\s+roles=".*manager-gui.*"(\s+)?/>' }
+      its('content') { should match '<user username=".*"\s+password=".*"\s+roles=".*manager-gui.*"(\s+)?/>' }
+    end
+    describe file(tomcat_libs + '/webapps/manager/WEB-INF/web.xml') do
+      its('owner') { should eq tomcat_user }
+      its('group') { should eq tomcat_group }
+      its('mode') { should cmp '0640' }
+      its('content') { should match '<transport-guarantee>CONFIDENTIAL</transport-guarantee>' }
     end
   end
 end
@@ -204,7 +213,7 @@ control 'tomcat.files_directories' do
       its('owner') { should eq tomcat_user }
       its('group') { should eq tomcat_group }
       if fname.end_with?("/web.xml")
-	its('mode') { should cmp '0400'}
+	      its('mode') { should cmp '0400'}
       else
        its('mode') { should cmp '0600' }
       end
