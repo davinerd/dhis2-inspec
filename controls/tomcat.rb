@@ -96,25 +96,25 @@ control 'tomcat.sample_apps' do
   tag cis_level: 2
 
   title 'Sample applications and unnecessary standard tools must be deleted.'
-  describe directory(catalina_home + '/webapps/js-examples') do
+  describe directory(tomcat_libs + '/webapps/js-examples') do
     it { should_not exist }
   end
-  describe directory(catalina_home + '/webapps/servlet-example') do
+  describe directory(tomcat_libs + '/webapps/servlet-example') do
     it { should_not exist }
   end
-  describe directory(catalina_home + '/webapps/tomcat-docs') do
+  describe directory(tomcat_libs + '/webapps/tomcat-docs') do
     it { should_not exist }
   end
-  describe directory(catalina_home + '/webapps/balancer') do
+  describe directory(tomcat_libs + '/webapps/balancer') do
     it { should_not exist }
   end
-  describe directory(catalina_home + '/webapps/ROOT/admin') do
+  describe directory(tomcat_libs + '/webapps/ROOT/admin') do
     it { should_not exist }
   end
-  describe directory(catalina_home + '/webapps/examples') do
+  describe directory(tomcat_libs + '/webapps/examples') do
     it { should_not exist }
   end
-  describe directory(catalina_home + '/server/webapps/host-manager') do
+  describe directory(tomcat_libs + '/server/webapps/host-manager') do
     it { should_not exist }
   end
 end
