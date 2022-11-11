@@ -1,4 +1,4 @@
-# Based on Tomcat9 CIS Benchmark 1.1.0
+# Based on Tomcat9 CIS Benchmark 1.2.0
 tomcat_service = input('tomcat_service', value: 'enable')
 tomcat_user = input('tomcat_user', value: 'tomcat')
 tomcat_group = input('tomcat_group', value: 'tomcat')
