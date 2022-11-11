@@ -317,6 +317,30 @@ control 'tomcat.health_status' do
   end
 end
 
+control 'tomcat.connectionTimeout' do
+  impact 1.0
+  title 'Configure connectionTimeout for used Connectors'
+
+  tag cis_id: 10.9
+  tag cis_level: 2
+
+  describe file(tomcat_conf + '/server.xml') do
+    its('content') { should match 'connectionTimeout="\d*"' }
+  end
+end
+
+control 'tomcat.contextLinking' do
+  impact 1.0
+  title 'Disallow context resource linking'
+
+  tag cis_id: 10.12
+  tag cis_level: 1
+
+  describe file(tomcat_conf + '/context.xml') do
+    its('content') { should_not match 'allowLinking="true"' }
+  end
+end
+
 control 'tomcat.context_privileged' do
   impact 1
   tag cis_id: 10.13
