@@ -8,6 +8,7 @@ tomcat_libs = input('tomcat_libs', value: '/var/lib/tomcat9')
 tomcat_logs = input('tomcat_logs', value: '/var/log/tomcat9')
 tomcat_cache = input('tomcat_cache', value: '/var/cache/tomcat9')
 tomcat_log_filehandler = input('logging_filehandler', value: 'AsyncFileHandler')
+os_version = input('os_version', value: 'ubuntu20.04')
 
 control 'tomcat.sample_apps' do
   impact 1.0
