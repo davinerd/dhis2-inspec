@@ -9,6 +9,7 @@ tomcat_logs = input('tomcat_logs', value: '/var/log/tomcat9')
 tomcat_cache = input('tomcat_cache', value: '/var/cache/tomcat9')
 tomcat_log_filehandler = input('logging_filehandler', value: 'AsyncFileHandler')
 os_version = input('os_version', value: 'ubuntu20.04')
+tomcat_port = input('tomcat_port', value: '8080')
 
 control 'tomcat.sample_apps' do
   impact 1.0
@@ -375,5 +376,17 @@ control 'tomcat.health_status' do
   title 'Health checks must be disabled'
   describe file(tomcat_conf + '/server.xml') do
     its('content') { should_not match 'org.apache.catalina.valves.HealthCheckValve' }
+  end
+end
+
+control 'tomcat.iptables' do
+  impact 1.0
+  title 'tomcat not exposed to 0.0.0.0'
+
+  cmd = "iptables -nL | grep #{tomcat_port} | awk '{print $4}' | tr -d '\n'"
+
+  describe command(cmd) do
+    its('stdout') { should_not eq ''}
+    its('stdout') { should_not eq '0.0.0.0'}
   end
 end
