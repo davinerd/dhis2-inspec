@@ -18,13 +18,13 @@ Please choose the method that works best for you in the [official documentation]
 dhis2-inspec$ inspec exec controls/<control>.rb 
 ```
 
-If you want to assess the deployment on an lxd container, use the `run_inspec.sh` script and pass the container name and the control you want to use
+If you want to assess the deployment on an lxd container, use the `run_inspec_lxd.sh` script and pass the container name and the control you want to use
 ```
-dhis2-inspec$ bash run_inspec.sh <container_name> controls/<control>.rb
+dhis2-inspec$ bash run_inspec_lxd.sh <container_name> controls/<control>.rb
 ```
 
 # Examples
 To assess the tomcat deployment on an lxd container, assuming you have a container named `dhis2`, you can use:
 ```
-dhis2-inspec$ bash run_inspec.sh dhis2 controls/tomcat.rb
+dhis2-inspec$ bash run_inspec_lxd.sh dhis2 controls/tomcat.rb
 ```
