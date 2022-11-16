@@ -10,7 +10,8 @@ $ cd dhis2-inspec
 ```
 
 2. Install inspec (if running locally)
-Please choose the method that works best for you here the [official documentation](https://docs.chef.io/inspec/install/)
+
+Please choose the method that works best for you in the [official documentation](https://docs.chef.io/inspec/install/).
 
 3. Run the desired control
 ```
