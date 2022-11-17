@@ -7,6 +7,9 @@ dhis2_custom_user = input('dhis2_custom_user', value: 'tomcat')
 hostname = input('container_name', value: `hostname`)
 dhis2_local_url = input('dhis2_url', value: 'http://localhost:8080/' + hostname.gsub("\n",''))
 os_version = input('os_version', value: 'ubuntu20.04')
+admin_user = input('dhis2_admin_user', value: 'admin')
+admin_pwd = input('dhis2_admin_passwd', value: 'district')
+total_admins = 5 # Per DHIS2 security considerations document
 
 only_if do
   file(dhis2_custom_path).exist?
@@ -101,5 +104,18 @@ control 'dhis-05' do
 
   describe http(dhis2_local_url + '/api/me', auth: {user: 'admin', pass: 'district'}, open_timeout: 60, read_timeout: 60, ssl_verify: false, max_redirects: 3) do
     its('status') { should eq 401 }
+  end
+end
+
+control 'dhis-06' do
+  impact 1.0
+  title 'Number of users with ALL authority (admins)'
+
+  cmd_admin_users = "curl -s -u #{admin_user}:#{admin_pwd} '#{dhis2_local_url}/api/users?fields=id,username,userRoles%5Bauthorities%5D&filter=userRoles.authorities:in:%5BALL%5D' | json_pp -json_opt pretty,canonical | grep total | awk -F ':' '{print $2}' | xargs | tr -d '\n'"
+
+  describe command(cmd_admin_users) do
+   its('stdout') { should_not eq '' }
+   its('stdout') { should_not cmp == 0 }
+   its('stdout') { should cmp <= total_admins }
   end
 end
