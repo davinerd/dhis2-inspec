@@ -1,8 +1,8 @@
-name: dhis2
+name: dhis2-inspec
 title: DHIS2 Security Assessment Profile
-maintainer: DHIS2 Security Team
-copyright: DHIS2
-copyright_email: security@dhis2.org
+maintainer: Davide Barbato
+copyright: Dab Tech Solutions SL
+copyright_email: info@dab.solutions
 license: GPLv3
 summary: Server security assessment
 version: 1.0.0
